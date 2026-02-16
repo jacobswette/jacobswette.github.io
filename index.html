@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacob R. Swette | MPH Epidemiology</title>
+  <meta name="description" content="Jacob R. Swette — MPH Epidemiology student, licensed acupuncturist, and public health researcher focused on One Health, behavioral rhythms, and disease ecology." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --clr-bg:        #FAFAF7;
+      --clr-surface:   #FFFFFF;
+      --clr-sidebar:   #1B2A21;
+      --clr-sidebar-hover: #2A3F33;
+      --clr-primary:   #2E6B4F;
+      --clr-primary-light: #3D8B68;
+      --clr-accent:    #C8A96E;
+      --clr-accent-light: #E8D5A8;
+      --clr-text:      #2C2C2C;
+      --clr-text-secondary: #5A5A5A;
+      --clr-text-light:#8A8A8A;
+      --clr-border:    #E5E2DB;
+      --clr-tag-bg:    #EDF5F0;
+      --clr-tag-text:  #2E6B4F;
+      --font-display:  'Cormorant Garamond', Georgia, serif;
+      --font-body:     'Source Sans 3', 'Segoe UI', sans-serif;
+      --sidebar-width: 280px;
+      --transition:    0.3s ease;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+    body { font-family: var(--font-body); color: var(--clr-text); background: var(--clr-bg); line-height: 1.7; font-size: 16px; -webkit-font-smoothing: antialiased; }
+    a { color: var(--clr-primary); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--clr-primary-light); }
+    img { max-width: 100%; display: block; }
+
+    /* Sidebar */
+    .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: var(--clr-sidebar); display: flex; flex-direction: column; z-index: 1000; overflow-y: auto; }
+    .sidebar__profile { padding: 2.5rem 1.5rem 1.5rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .sidebar__avatar { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 1rem; background: var(--clr-primary); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: #fff; letter-spacing: 1px; border: 3px solid var(--clr-accent); }
+    .sidebar__name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: #fff; }
+    .sidebar__title { font-size: 0.8rem; color: var(--clr-accent); text-transform: uppercase; letter-spacing: 1.8px; margin-top: 0.35rem; font-weight: 600; }
+    .sidebar__nav { flex: 1; padding: 1.25rem 0; }
+    .sidebar__nav a { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1.75rem; color: rgba(255,255,255,0.65); font-size: 0.86rem; font-weight: 400; letter-spacing: 0.5px; transition: all var(--transition); border-left: 3px solid transparent; }
+    .sidebar__nav a:hover, .sidebar__nav a.active { color: #fff; background: var(--clr-sidebar-hover); border-left-color: var(--clr-accent); }
+    .sidebar__nav a .nav-icon { width: 18px; text-align: center; font-size: 0.8rem; opacity: 0.6; }
+    .sidebar__footer { padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: center; gap: 1rem; }
+    .sidebar__footer a { color: rgba(255,255,255,0.5); font-size: 0.85rem; transition: color var(--transition); }
+    .sidebar__footer a:hover { color: var(--clr-accent); }
+
+    /* Mobile Toggle */
+    .menu-toggle { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 1100; width: 44px; height: 44px; border-radius: 8px; background: var(--clr-sidebar); border: none; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Main */
+    .main { margin-left: var(--sidebar-width); min-height: 100vh; }
+
+    /* Hero */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, rgba(30,60,44,0.92) 0%, rgba(46,107,79,0.88) 50%, rgba(27,42,33,0.94) 100%); overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(200,169,110,0.12) 0%, transparent 60%); pointer-events: none; }
+    .hero__content { position: relative; z-index: 1; max-width: 700px; animation: heroFadeIn 1s ease-out; }
+    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero__greeting { font-family: var(--font-body); font-size: 1rem; color: var(--clr-accent); text-transform: uppercase; letter-spacing: 3px; font-weight: 600; margin-bottom: 1rem; }
+    .hero__name { font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 4.5rem); color: #fff; font-weight: 700; line-height: 1.1; margin-bottom: 1rem; }
+    .hero__typed-wrapper { font-family: var(--font-display); font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: rgba(255,255,255,0.85); font-weight: 400; margin-bottom: 1rem; min-height: 2em; }
+    .hero__typed { font-weight: 600; color: var(--clr-accent); }
+    .hero__cursor { font-weight: 300; color: var(--clr-accent); animation: cursorBlink 0.75s step-end infinite; }
+    @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .hero__tagline { font-family: var(--font-body); font-size: 1.05rem; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2rem; border-radius: 6px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; transition: all var(--transition); border: none; }
+    .btn--primary { background: var(--clr-accent); color: var(--clr-sidebar); }
+    .btn--primary:hover { background: #d4b87a; color: var(--clr-sidebar); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,169,110,0.3); }
+    .btn--outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.35); }
+    .btn--outline:hover { border-color: #fff; color: #fff; transform: translateY(-2px); }
+
+    /* Sections */
+    .section { padding: 5rem 3rem; max-width: 900px; margin: 0 auto; }
+    .section--alt { background: var(--clr-surface); max-width: 100%; padding: 5rem 0; }
+    .section--alt > .section__inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; }
+    .section__label { font-family: var(--font-body); font-size: 0.75rem; color: var(--clr-accent); text-transform: uppercase; letter-spacing: 3px; font-weight: 600; margin-bottom: 0.5rem; }
+    .section__heading { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.75rem; line-height: 1.2; }
+    .section__divider { width: 50px; height: 3px; background: var(--clr-accent); border-radius: 2px; margin-bottom: 2.5rem; }
+
+    /* About */
+    .about__text { font-size: 1.05rem; color: var(--clr-text-secondary); line-height: 1.8; margin-bottom: 1.5rem; }
+    .about__interests { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { display: inline-block; padding: 0.35rem 0.9rem; background: var(--clr-tag-bg); color: var(--clr-tag-text); font-size: 0.82rem; font-weight: 600; border-radius: 20px; letter-spacing: 0.3px; }
+
+    /* Education */
+    .edu-card { display: flex; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--clr-border); align-items: flex-start; }
+    .edu-card:last-child { border-bottom: none; }
+    .edu-card__icon { flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px; background: var(--clr-tag-bg); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--clr-primary); }
+    .edu-card__degree { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.2rem; }
+    .edu-card__school { font-weight: 600; color: var(--clr-primary); font-size: 0.95rem; }
+    .edu-card__meta { font-size: 0.85rem; color: var(--clr-text-light); margin-top: 0.25rem; }
+    .edu-card__details { font-size: 0.9rem; color: var(--clr-text-secondary); margin-top: 0.5rem; line-height: 1.6; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 2px; background: var(--clr-border); }
+    .timeline__item { position: relative; padding: 0 0 2.5rem 1.5rem; }
+    .timeline__item:last-child { padding-bottom: 0; }
+    .timeline__item::before { content: ''; position: absolute; left: -2rem; top: 0.5rem; width: 10px; height: 10px; border-radius: 50%; background: var(--clr-accent); border: 2px solid var(--clr-bg); transform: translateX(-4px); }
+    .timeline__role { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--clr-text); }
+    .timeline__org { font-weight: 600; color: var(--clr-primary); font-size: 0.95rem; }
+    .timeline__date { font-size: 0.82rem; color: var(--clr-text-light); margin-top: 0.15rem; margin-bottom: 0.5rem; }
+    .timeline__desc { font-size: 0.92rem; color: var(--clr-text-secondary); line-height: 1.7; }
+    .timeline__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+    .timeline__tags .tag { font-size: 0.75rem; padding: 0.25rem 0.65rem; }
+
+    /* Publications */
+    .pub-card { padding: 1.5rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 10px; margin-bottom: 1.25rem; transition: all var(--transition); }
+    .section--alt .pub-card { background: var(--clr-bg); }
+    .pub-card:hover { border-color: var(--clr-accent-light); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .pub-card__type { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: var(--clr-accent); margin-bottom: 0.5rem; }
+    .pub-card__title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.35rem; line-height: 1.4; }
+    .pub-card__venue { font-size: 0.88rem; color: var(--clr-text-secondary); font-style: italic; }
+    .pub-card__desc { font-size: 0.88rem; color: var(--clr-text-secondary); margin-top: 0.5rem; line-height: 1.6; }
+
+    /* Awards */
+    .award-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--clr-border); }
+    .award-item:last-child { border-bottom: none; }
+    .award-item__icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--clr-accent-light), var(--clr-accent)); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--clr-sidebar); }
+    .award-item__title { font-weight: 600; color: var(--clr-text); font-size: 0.95rem; }
+    .award-item__meta { font-size: 0.82rem; color: var(--clr-text-light); margin-top: 0.15rem; }
+
+    /* Biomimicry Grid */
+    .bio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; }
+    .bio-card { padding: 1.75rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 10px; transition: all var(--transition); }
+    .bio-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: var(--clr-accent-light); }
+    .bio-card__emoji { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .bio-card__title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.4rem; }
+    .bio-card__text { font-size: 0.88rem; color: var(--clr-text-secondary); line-height: 1.6; }
+
+    /* Info Block */
+    .info-block { padding: 1.75rem; background: var(--clr-tag-bg); border-radius: 10px; border-left: 4px solid var(--clr-primary); margin-bottom: 1.25rem; }
+    .info-block__title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.35rem; }
+    .info-block__text { font-size: 0.92rem; color: var(--clr-text-secondary); line-height: 1.7; }
+
+    /* Languages */
+    .lang-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .lang-card { text-align: center; padding: 1.75rem 1rem; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-surface); transition: all var(--transition); }
+    .lang-card:hover { border-color: var(--clr-accent); transform: translateY(-2px); }
+    .lang-card__name { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.25rem; }
+    .lang-card__level { font-size: 0.82rem; color: var(--clr-text-light); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .lang-card__detail { font-size: 0.8rem; color: var(--clr-text-secondary); margin-top: 0.35rem; line-height: 1.5; }
+    .lang-card__native { display: inline-block; margin-bottom: 0.5rem; font-size: 1.5rem; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+    .contact-card { text-align: center; padding: 2rem 1.5rem; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-bg); transition: all var(--transition); display: block; }
+    .contact-card:hover { border-color: var(--clr-accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); color: var(--clr-text); }
+    .contact-card__icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .contact-card__label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-text-light); font-weight: 600; margin-bottom: 0.35rem; }
+    .contact-card__value { font-weight: 600; color: var(--clr-text); font-size: 0.92rem; }
+
+    /* Animations */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Sub-headings within sections */
+    .section__subheading { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--clr-text); margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--clr-border); }
+    .section__subheading:first-of-type { margin-top: 0; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+      .sidebar.open { transform: translateX(0); }
+      .menu-toggle { display: flex; }
+      .main { margin-left: 0; }
+      .section { padding: 3.5rem 1.5rem; }
+      .section--alt > .section__inner { padding: 0 1.5rem; }
+      .hero { min-height: 90vh; padding: 3rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .hero__name { font-size: 2.2rem; }
+      .contact-grid, .bio-grid, .lang-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar__profile">
+      <div class="sidebar__avatar">JS</div>
+      <div class="sidebar__name">Jacob R. Swette</div>
+      <div class="sidebar__title">MPH Epidemiology</div>
+    </div>
+    <div class="sidebar__nav">
+      <a href="#about"><span class="nav-icon">&#9670;</span> About</a>
+      <a href="#education"><span class="nav-icon">&#9670;</span> Education</a>
+      <a href="#experience"><span class="nav-icon">&#9670;</span> Experience</a>
+      <a href="#research"><span class="nav-icon">&#9670;</span> Research</a>
+      <a href="#biomimicry"><span class="nav-icon">&#9670;</span> Biomimicry</a>
+      <a href="#clinical"><span class="nav-icon">&#9670;</span> Clinical Practice</a>
+      <a href="#advisory"><span class="nav-icon">&#9670;</span> Advisory &amp; Service</a>
+      <a href="#awards"><span class="nav-icon">&#9670;</span> Awards</a>
+      <a href="#languages"><span class="nav-icon">&#9670;</span> Languages</a>
+      <a href="#contact"><span class="nav-icon">&#9670;</span> Contact</a>
+    </div>
+    <div class="sidebar__footer">
+      <a href="https://github.com/jacobswette" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/jacobswette" target="_blank">LinkedIn</a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Hero -->
+    <section class="hero" id="intro">
+      <div class="hero__content">
+        <div class="hero__greeting">Hello, I'm</div>
+        <h1 class="hero__name">Jacob R. Swette</h1>
+        <p class="hero__typed-wrapper">A <span class="hero__typed" id="typed"></span><span class="hero__cursor">|</span></p>
+        <p class="hero__tagline">Investigating how behavioral rhythms, nature exposure, and environmental change shape health across species &mdash; through the lenses of epidemiology, biomimicry, and integrative medicine.</p>
+        <div class="hero__buttons">
+          <a href="#about" class="btn btn--primary">Read More</a>
+          <a href="#contact" class="btn btn--outline">Contact Me</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="fade-in">
+        <div class="section__label">Introduction</div>
+        <h2 class="section__heading">About</h2>
+        <div class="section__divider"></div>
+        <p class="about__text">
+          I am an MPH Epidemiology student at the University of South Florida College of Public Health, with concurrent graduate certificates in Applied Biostatistics and Epidemiology of Infectious Disease. My research interests center on daily and seasonal behavioral rhythms in human health, nature exposure and ecological determinants of well-being, and One Health and planetary health pathways through which environmental change shapes disease ecology across species.
+        </p>
+        <p class="about__text">
+          My path to epidemiology has been deeply interdisciplinary. I hold an MS in Biomimicry from Arizona State University (graduated with distinction), a Doctor of Acupuncture from Pacific College of Health and Science, and a BS in Interdisciplinary Studies with a focus on health epistemology from the University of Wisconsin&ndash;Superior. I have spent over a decade in clinical practice as a licensed acupuncturist and integrative health team leader, and I bring that frontline perspective to my research in population health.
+        </p>
+        <div class="about__interests">
+          <span class="tag">Behavioral Rhythms &amp; Sleep</span>
+          <span class="tag">Nature Exposure</span>
+          <span class="tag">One Health</span>
+          <span class="tag">Planetary Health</span>
+          <span class="tag">Disease Ecology</span>
+          <span class="tag">Vector-Borne Disease</span>
+          <span class="tag">Biomimicry</span>
+          <span class="tag">Biostatistics</span>
+          <span class="tag">Integrative Medicine</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section section--alt" id="education">
+      <div class="section__inner">
+        <div class="fade-in">
+          <div class="section__label">Academic Background</div>
+          <h2 class="section__heading">Education</h2>
+          <div class="section__divider"></div>
+
+          <div class="edu-card">
+            <div class="edu-card__icon">&#127891;</div>
+            <div>
+              <div class="edu-card__degree">Master of Public Health &mdash; Epidemiology</div>
+              <div class="edu-card__school">University of South Florida, Tampa, FL</div>
+              <div class="edu-card__meta">2025&ndash;2028 &middot; Concurrent Certificates: Applied Biostatistics, Epidemiology of Infectious Disease</div>
+            </div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-card__icon">&#127807;</div>
+            <div>
+              <div class="edu-card__degree">Master of Science &mdash; Biomimicry</div>
+              <div class="edu-card__school">Arizona State University, Tempe, AZ</div>
+              <div class="edu-card__meta">2022&ndash;2025 &middot; Graduated with Distinction</div>
+              <div class="edu-card__details">Practicums: Zoonotic Spillover Prevention, Malaria Vector Control, Genius of Biome: Arctic Tundra</div>
+            </div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-card__icon">&#9879;&#65039;</div>
+            <div>
+              <div class="edu-card__degree">Doctor of Acupuncture (DAc)</div>
+              <div class="edu-card__school">Pacific College of Health and Science, San Diego, CA</div>
+              <div class="edu-card__meta">2020&ndash;2022</div>
+            </div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-card__icon">&#128214;</div>
+            <div>
+              <div class="edu-card__degree">Bachelor of Science &mdash; Interdisciplinary Studies (&ldquo;Health Epistemology&rdquo;)</div>
+              <div class="edu-card__school">University of Wisconsin&ndash;Superior, Superior, WI</div>
+              <div class="edu-card__meta">2017&ndash;2020</div>
+              <div class="edu-card__details">Capstone: A Better Understanding of Viral Hepatitis in the U.S.</div>
+            </div>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-card__icon">&#128204;</div>
+            <div>
+              <div class="edu-card__degree">Master of Science in Acupuncture (MSAc)</div>
+              <div class="edu-card__school">Southwest Acupuncture College, Boulder, CO</div>
+              <div class="edu-card__meta">2012&ndash;2015</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section" id="experience">
+      <div class="fade-in">
+        <div class="section__label">Professional Journey</div>
+        <h2 class="section__heading">Experience</h2>
+        <div class="section__divider"></div>
+
+        <h3 class="section__subheading">Research</h3>
+        <div class="timeline">
+          <div class="timeline__item">
+            <div class="timeline__role">ACE Scholar &amp; Research Assistant Team Lead</div>
+            <div class="timeline__org">Arizona Cancer Evolution Center, Arizona State University</div>
+            <div class="timeline__date">2024&ndash;Present &middot; Supervisor: Carlo Maley, PhD</div>
+            <div class="timeline__desc">Investigating neoplasia and cancer prevalence in elephant species through statistical analysis of necropsy records. Leading manuscript preparation for conference presentation and journal publication. Participating in weekly tutorials in R, Python, statistical methods, cancer biology, evolution, and scientific writing.</div>
+            <div class="timeline__tags">
+              <span class="tag">R</span>
+              <span class="tag">Python</span>
+              <span class="tag">Comparative Oncology</span>
+              <span class="tag">Team Lead</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__role">Research Candidate</div>
+            <div class="timeline__org">All of Us Research Program, National Institutes of Health</div>
+            <div class="timeline__date">2022&ndash;Present</div>
+            <div class="timeline__desc">Completed annual training and certification for health research using All of Us datasets, including genomic records, electronic health records, physical measurements, wearable device data, and survey responses.</div>
+            <div class="timeline__tags">
+              <span class="tag">NIH</span>
+              <span class="tag">Health Data</span>
+              <span class="tag">Genomics</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section__subheading">Teaching</h3>
+        <div class="timeline">
+          <div class="timeline__item">
+            <div class="timeline__role">Graduate Service Assistant &amp; Teaching Assistant</div>
+            <div class="timeline__org">Arizona State University, Tempe, AZ</div>
+            <div class="timeline__date">2023&ndash;2024</div>
+            <div class="timeline__desc">Supported instruction in five graduate-level courses (120+ students) across biomimicry, systems thinking, biology, and environmental ethics. Held weekly office hours, facilitated discussions, and guided two student research teams in applied design projects including CPAP compliance improvement and marine sonar noise reduction.</div>
+            <div class="timeline__tags">
+              <span class="tag">BMY 501&ndash;505</span>
+              <span class="tag">Mentorship</span>
+              <span class="tag">Systems Thinking</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__role">Clinical Preceptor</div>
+            <div class="timeline__org">Duluth Family Medicine Residency Program, Essentia Health</div>
+            <div class="timeline__date">2018&ndash;Present</div>
+            <div class="timeline__desc">Providing clinical acupuncture training and supervision for family medicine resident physicians during their integrative health rotations.</div>
+            <div class="timeline__tags">
+              <span class="tag">Medical Education</span>
+              <span class="tag">Integrative Health</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section__subheading">Clinical &amp; Industry</h3>
+        <div class="timeline">
+          <div class="timeline__item">
+            <div class="timeline__role">Lead Licensed Acupuncturist &amp; Integrative Health Team Leader</div>
+            <div class="timeline__org">Duluth First Street Clinic, Essentia Health, Duluth, MN</div>
+            <div class="timeline__date">2017&ndash;Present</div>
+            <div class="timeline__desc">Subject matter expert for clinical acupuncture practice within a large healthcare system. Contributing health data via Epic EHR, collaborating daily with physicians and advanced practice providers, supervising clinical assistants, and evaluating fiscal performance. Applying academic training in pharmacology, laboratory testing, and diagnostic imaging interpretation.</div>
+            <div class="timeline__tags">
+              <span class="tag">Epic EHR</span>
+              <span class="tag">Interprofessional</span>
+              <span class="tag">Clinical Leadership</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__role">Licensed Acupuncturist</div>
+            <div class="timeline__org">Modern Point Acupuncture &amp; Sports Medicine, Minneapolis, MN</div>
+            <div class="timeline__date">2015&ndash;2017</div>
+            <div class="timeline__desc">Independent contractor applying systems thinking, motivational interviewing, and sports medicine evaluation to support patients in meeting individualized health goals.</div>
+            <div class="timeline__tags">
+              <span class="tag">Sports Medicine</span>
+              <span class="tag">Motivational Interviewing</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__role">Therapeutic Housemate</div>
+            <div class="timeline__org">Windhorse Community Services, Boulder, CO</div>
+            <div class="timeline__date">2012&ndash;2014</div>
+            <div class="timeline__desc">Live-in therapeutic support for a client with treatment-resistant behavioral health diagnoses. Maintained daily observational records and collaborated on an interdisciplinary team with psychiatrists, social workers, and psychotherapists.</div>
+            <div class="timeline__tags">
+              <span class="tag">Behavioral Health</span>
+              <span class="tag">Interdisciplinary Care</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research & Presentations -->
+    <section class="section section--alt" id="research">
+      <div class="section__inner">
+        <div class="fade-in">
+          <div class="section__label">Scholarship</div>
+          <h2 class="section__heading">Research &amp; Presentations</h2>
+          <div class="section__divider"></div>
+
+          <h3 class="section__subheading">Poster Presentations</h3>
+
+          <div class="pub-card">
+            <div class="pub-card__type">Poster &middot; 2026</div>
+            <div class="pub-card__title">Adverse Childhood Experiences and Chronic Pain in U.S. Children</div>
+            <div class="pub-card__venue">USF Health Research Day, Tampa, FL</div>
+            <div class="pub-card__desc">Swette J., Nguyen-Meyer S., Kirby R., Bakou C.</div>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-card__type">Poster &middot; 2025</div>
+            <div class="pub-card__title">Cancer Resistance in Elephants: A Multi-Species Analysis of Neoplasia Prevalence</div>
+            <div class="pub-card__venue">S.O.L.U.R. Symposium, Arizona State University, Tempe, AZ</div>
+            <div class="pub-card__desc">Swette J., Mellon W., Schroeder M. &middot; Role: Team Lead. Sponsored by ASU School of Life Sciences.</div>
+          </div>
+
+          <h3 class="section__subheading">Industry Presentations</h3>
+
+          <div class="pub-card">
+            <div class="pub-card__type">Presentation &middot; February 2020</div>
+            <div class="pub-card__title">Acupuncture Orthopedics</div>
+            <div class="pub-card__venue">Department of Outpatient Orthopedics, Essentia Health, Duluth, MN</div>
+            <div class="pub-card__desc">45-minute presentation on current research regarding physiologic mechanisms of action of acupuncture and manual therapy techniques in orthopedic clinical contexts.</div>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-card__type">CME Lecture &middot; April 2019</div>
+            <div class="pub-card__title">Acupuncture Indications and the Patient Experience</div>
+            <div class="pub-card__venue">St. Mary's Medical Center, Essentia Health, Duluth, MN</div>
+            <div class="pub-card__desc">1-hour auditorium lecture with Q&amp;A. Accredited for continuing medical education units by the Minnesota Medical Association.</div>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-card__type">CME Lecture &middot; February 2018</div>
+            <div class="pub-card__title">Acupuncture &mdash; A Modern Understanding of a Classical Approach</div>
+            <div class="pub-card__venue">St. Mary's Medical Center, Essentia Health, Duluth, MN</div>
+            <div class="pub-card__desc">1-hour auditorium lecture on neurophysiological and biochemical mechanisms of acupuncture. Accredited for CME by the Minnesota Medical Association.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Biomimicry -->
+    <section class="section" id="biomimicry">
+      <div class="fade-in">
+        <div class="section__label">Nature-Inspired Innovation</div>
+        <h2 class="section__heading">Biomimicry</h2>
+        <div class="section__divider"></div>
+        <p class="about__text" style="margin-bottom: 2rem;">
+          My MS in Biomimicry from Arizona State University (graduated with distinction) trained me to look to 3.8 billion years of evolutionary solutions when approaching complex problems. I apply Life's Principles and ecological design thinking to challenges at the intersection of human health and the natural world.
+        </p>
+        <div class="bio-grid">
+          <div class="bio-card">
+            <div class="bio-card__emoji">&#129439;</div>
+            <div class="bio-card__title">Malaria Vector Control</div>
+            <div class="bio-card__text">Applied biomimetic design principles to develop sustainable, ecologically-informed strategies for mosquito vector management.</div>
+          </div>
+          <div class="bio-card">
+            <div class="bio-card__emoji">&#129440;</div>
+            <div class="bio-card__title">Zoonotic Spillover Prevention</div>
+            <div class="bio-card__text">Explored nature-inspired interventions at human&ndash;wildlife interfaces to reduce the risk of zoonotic disease emergence.</div>
+          </div>
+          <div class="bio-card">
+            <div class="bio-card__emoji">&#10052;&#65039;</div>
+            <div class="bio-card__title">Genius of Biome: Arctic Tundra</div>
+            <div class="bio-card__text">Investigated adaptive strategies in arctic ecosystems with implications for understanding climate-health dynamics and resilience.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clinical Practice -->
+    <section class="section section--alt" id="clinical">
+      <div class="section__inner">
+        <div class="fade-in">
+          <div class="section__label">Integrative Medicine</div>
+          <h2 class="section__heading">Clinical Practice</h2>
+          <div class="section__divider"></div>
+
+          <div class="info-block">
+            <div class="info-block__title">Lead Acupuncturist &amp; Integrative Health Team Leader &mdash; Essentia Health</div>
+            <div class="info-block__text">Since 2017, I have served as the lead licensed acupuncturist at Essentia Health's Duluth First Street Clinic, functioning as the organization's subject matter expert on clinical acupuncture, acupuncture research, and comparative needling therapies. I collaborate daily with physicians and advanced practice providers in an interprofessional primary care setting.</div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-block__title">Clinical Preceptor &mdash; Family Medicine Residency</div>
+            <div class="info-block__text">Since 2018, I have provided clinical acupuncture training and supervision for family medicine resident physicians at the Duluth Family Medicine Residency Program during their integrative health rotations.</div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-block__title">Licensure &amp; Certification</div>
+            <div class="info-block__text">
+              Diplomate of Acupuncture, NCCAOM &middot;
+              Licensed Acupuncturist in Minnesota, Wisconsin, and Colorado &middot;
+              Licensed Massage Therapist in Wisconsin and Colorado &middot;
+              Certified Kinesio Taping Practitioner &amp; Instructor
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advisory & Service -->
+    <section class="section" id="advisory">
+      <div class="fade-in">
+        <div class="section__label">Public Service</div>
+        <h2 class="section__heading">Advisory &amp; Service Roles</h2>
+        <div class="section__divider"></div>
+
+        <div class="info-block">
+          <div class="info-block__title">Acupuncture Advisory Council Member</div>
+          <div class="info-block__text">Minnesota Board of Medical Practice, 2025&ndash;2028. Elected for a three-year term advising the state medical board on acupuncture practice matters for approximately 653 licensed providers, making recommendations for disciplinary processes, assessing continuing education programs, and supporting enforcement of acupuncture practice laws.</div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block__title">Community Ambassador (Northern Region)</div>
+          <div class="info-block__text">Wisconsin Public Radio, 2024&ndash;Present.</div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block__title">Alumni Mentor</div>
+          <div class="info-block__text">Pacific College of Health and Science, 2022&ndash;Present. Offering guidance to current students and recent graduates of master's and doctoral acupuncture programs, supporting board exam readiness, clinical readiness, and career preparation.</div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block__title">Ambassador &mdash; Mindful Medicine Worldwide</div>
+          <div class="info-block__text">2014&ndash;2015. Raised over $5,000 through grassroots efforts to purchase medical supplies for a rural clinic in Chanauti, Nepal.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards -->
+    <section class="section section--alt" id="awards">
+      <div class="section__inner">
+        <div class="fade-in">
+          <div class="section__label">Recognition</div>
+          <h2 class="section__heading">Awards &amp; Memberships</h2>
+          <div class="section__divider"></div>
+
+          <h3 class="section__subheading">Awards</h3>
+
+          <div class="award-item">
+            <div class="award-item__icon">&#127942;</div>
+            <div>
+              <div class="award-item__title">Graduated MS Biomimicry with Distinction</div>
+              <div class="award-item__meta">2025 &middot; Arizona State University</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div class="award-item__icon">&#127942;</div>
+            <div>
+              <div class="award-item__title">Dean's List</div>
+              <div class="award-item__meta">2017, 2018 &middot; University of Wisconsin&ndash;Superior</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div class="award-item__icon">&#127942;</div>
+            <div>
+              <div class="award-item__title">Omicron Delta Kappa</div>
+              <div class="award-item__meta">2024&ndash;Present &middot; National Leadership Honor Society</div>
+            </div>
+          </div>
+
+          <h3 class="section__subheading">Select Professional Memberships</h3>
+
+          <div class="award-item">
+            <div class="award-item__icon">&#9733;</div>
+            <div>
+              <div class="award-item__title">American Association for the Advancement of Science</div>
+              <div class="award-item__meta">2025&ndash;Present</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div class="award-item__icon">&#9733;</div>
+            <div>
+              <div class="award-item__title">Planetary Health Alliance</div>
+              <div class="award-item__meta">2024&ndash;Present</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div class="award-item__icon">&#9733;</div>
+            <div>
+              <div class="award-item__title">Society for Acupuncture Research</div>
+              <div class="award-item__meta">2024&ndash;Present</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div class="award-item__icon">&#9733;</div>
+            <div>
+              <div class="award-item__title">American College of Sports Medicine</div>
+              <div class="award-item__meta">2010&ndash;2023</div>
+            </div>
+          </div>
+
+          <h3 class="section__subheading">Media</h3>
+
+          <div class="award-item">
+            <div class="award-item__icon">&#127909;</div>
+            <div>
+              <div class="award-item__title">Medical Insights &mdash; KBJR-News</div>
+              <div class="award-item__meta">2019&ndash;2020 &middot; Recurring segments on acupuncture and Chinese medicine</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div class="award-item__icon">&#128240;</div>
+            <div>
+              <div class="award-item__title">Alternative Medicine, Conventional Settings &mdash; Business North</div>
+              <div class="award-item__meta">2017 &middot; Integrative medicine and acupuncture in hospital settings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Languages -->
+    <section class="section" id="languages">
+      <div class="fade-in">
+        <div class="section__label">Communication</div>
+        <h2 class="section__heading">Languages</h2>
+        <div class="section__divider"></div>
+        <div class="lang-grid">
+          <div class="lang-card">
+            <div class="lang-card__native">&#127482;&#127480;</div>
+            <div class="lang-card__name">English</div>
+            <div class="lang-card__level">Native</div>
+          </div>
+          <div class="lang-card">
+            <div class="lang-card__native">&#127464;&#127475;</div>
+            <div class="lang-card__name">Mandarin Chinese</div>
+            <div class="lang-card__level">Intermediate</div>
+            <div class="lang-card__detail">Reading &amp; Writing: Intermediate<br />Speaking: Beginner<br />Studies in Beijing &amp; Boulder</div>
+          </div>
+          <div class="lang-card">
+            <div class="lang-card__native">&#127466;&#127480;</div>
+            <div class="lang-card__name">Spanish</div>
+            <div class="lang-card__level">Beginner</div>
+            <div class="lang-card__detail">Reading, Writing &amp; Speaking: Beginner</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--alt" id="contact">
+      <div class="section__inner">
+        <div class="fade-in">
+          <div class="section__label">Get In Touch</div>
+          <h2 class="section__heading">Contact</h2>
+          <div class="section__divider"></div>
+          <div class="contact-grid">
+            <a class="contact-card" href="mailto:jakeswette@gmail.com">
+              <div class="contact-card__icon">&#9993;&#65039;</div>
+              <div class="contact-card__label">Email</div>
+              <div class="contact-card__value">jakeswette@gmail.com</div>
+            </a>
+            <a class="contact-card" href="https://github.com/jacobswette" target="_blank">
+              <div class="contact-card__icon">&#128187;</div>
+              <div class="contact-card__label">GitHub</div>
+              <div class="contact-card__value">github.com/jacobswette</div>
+            </a>
+            <a class="contact-card" href="tel:+17202564802">
+              <div class="contact-card__icon">&#128222;</div>
+              <div class="contact-card__label">Phone</div>
+              <div class="contact-card__value">(720) 256-4802</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--clr-text-light); border-top: 1px solid var(--clr-border);">
+      &copy; 2025 Jacob R. Swette. Built with care.
+    </footer>
+  </main>
+
+  <script>
+    // Typewriter
+    const typedEl = document.getElementById('typed');
+    const phrases = [
+      'Public Health Researcher',
+      'One Health Advocate',
+      'Licensed Acupuncturist',
+      'Biomimicry Scientist',
+      'Epidemiology Student',
+      'Multilingual Scholar',
+      'Vector-Borne Disease Ecologist',
+      'Biomimic',
+      'Teacher',
+      'Student'
+    ];
+    let phraseIdx = 0, charIdx = 0, deleting = false;
+    const typeSpeed = 80, deleteSpeed = 40, pauseEnd = 1800, pauseStart = 400;
+    function typewriter() {
+      const current = phrases[phraseIdx];
+      if (!deleting) {
+        typedEl.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === current.length) { deleting = true; setTimeout(typewriter, pauseEnd); return; }
+        setTimeout(typewriter, typeSpeed);
+      } else {
+        typedEl.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; setTimeout(typewriter, pauseStart); return; }
+        setTimeout(typewriter, deleteSpeed);
+      }
+    }
+    setTimeout(typewriter, 600);
+
+    // Mobile menu
+    const toggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    toggle.addEventListener('click', () => { toggle.classList.toggle('open'); sidebar.classList.toggle('open'); });
+    document.querySelectorAll('.sidebar__nav a').forEach(link => {
+      link.addEventListener('click', () => { toggle.classList.remove('open'); sidebar.classList.remove('open'); });
+    });
+
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.sidebar__nav a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => { link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id); });
+        }
+      });
+    }, { rootMargin: '-20% 0px -75% 0px' });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Fade in
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); fadeObs.unobserve(entry.target); } });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => fadeObs.observe(el));
+  </script>
+</body>
+</html>
