@@ -286,7 +286,7 @@ const fadeEls=document.querySelectorAll('.fade-in');
 const fadeObs=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');fadeObs.unobserve(entry.target);}});},{threshold:0.15});
 fadeEls.forEach(el=>fadeObs.observe(el));
 setTimeout(()=>{fadeEls.forEach(el=>el.classList.add('visible'));},1500);
-  var u='jakeswette';var d='gmail.com';var e=u+'@'+d;document.getElementById('emailValue').textContent=e;document.getElementById('emailCard').href='mailto:'+e;
+  var u='jswette';var d='usf.edu';var e=u+'@'+d;document.getElementById('emailValue').textContent=e;document.getElementById('emailCard').href='mailto:'+e;
 </script>
 </body>
 </html>
