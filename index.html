@@ -249,8 +249,8 @@
     <div class="section__divider"></div>
     <div class="lang-grid">
       <div class="lang-card"><div class="lang-card__native">&#127482;&#127480;</div><div class="lang-card__name">English</div><div class="lang-card__level">Native</div></div>
-      <div class="lang-card"><div class="lang-card__native">&#127464;&#127475;</div><div class="lang-card__name">Mandarin Chinese</div><div class="lang-card__level">Intermediate</div><div class="lang-card__detail">Reading &amp; Writing: Intermediate<br />Speaking: Beginner<br />Studies in Beijing &amp; Boulder</div></div>
-      <div class="lang-card"><div class="lang-card__native">&#127466;&#127480;</div><div class="lang-card__name">Spanish</div><div class="lang-card__level">Beginner</div><div class="lang-card__detail">Reading, Writing &amp; Speaking: Beginner</div></div>
+      <div class="lang-card"><div class="lang-card__native">&#127464;&#127475;</div><div class="lang-card__name">Mandarin Chinese</div><div class="lang-card__level">Intermediate</div></div>
+      <div class="lang-card"><div class="lang-card__native">&#127466;&#127480;</div><div class="lang-card__name">Spanish</div><div class="lang-card__level">Beginner</div></div>
     </div>
   </div>
 </section>
@@ -262,7 +262,7 @@
     <div class="contact-grid">
       <a class="contact-card" href="/cdn-cgi/l/email-protection#543e353f31272331202031143339353d387a373b39"><div class="contact-card__icon">&#9993;&#65039;</div><div class="contact-card__label">Email</div><div class="contact-card__value"><span class="__cf_email__" data-cfemail="4f252e242a3c382a3b3b2a0f28222e2623612c2022">[email&#160;protected]</span></div></a>
       <a class="contact-card" href="https://github.com/jacobswette" target="_blank"><div class="contact-card__icon">&#128187;</div><div class="contact-card__label">GitHub</div><div class="contact-card__value">github.com/jacobswette</div></a>
-      <a class="contact-card" href="tel:+17202564802"><div class="contact-card__icon">&#128222;</div><div class="contact-card__label">Phone</div><div class="contact-card__value">(720) ###-####</div></a>
+  
     </div>
   </div></div>
 </section>
@@ -270,7 +270,7 @@
 </main>
 <script>
 const typedEl=document.getElementById('typed');
-const phrases=['Researcher','Environmentalist','Biomimic','Student','Mentor','Biologist','Health Expert','R Enthusiast'];
+const phrases=['Researcher','Environmentalist','Biomimic','Health Researcher','Nature-Inspired Problem Solver','R Enthusiast','','Disease Ecologist'];
 let phraseIdx=0,charIdx=0,deleting=false;
 const typeSpeed=80,deleteSpeed=40,pauseEnd=1800,pauseStart=400;
 function typewriter(){const current=phrases[phraseIdx];if(!deleting){typedEl.textContent=current.substring(0,charIdx+1);charIdx++;if(charIdx===current.length){deleting=true;setTimeout(typewriter,pauseEnd);return;}setTimeout(typewriter,typeSpeed);}else{typedEl.textContent=current.substring(0,charIdx-1);charIdx--;if(charIdx===0){deleting=false;phraseIdx=(phraseIdx+1)%phrases.length;setTimeout(typewriter,pauseStart);return;}setTimeout(typewriter,deleteSpeed);}}
