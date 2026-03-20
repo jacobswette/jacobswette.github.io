@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jacobswette.github.io/sitemap.xml
